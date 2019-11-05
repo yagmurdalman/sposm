@@ -3,14 +3,27 @@ import re
 
 # result = re.findall(r"\\begin{tabular\}(?:{.*\})?\s*(?:\s*(.*?)\\\\\s*)*\\end{tabular}", latex_input)
 
-def assignment(latex_input, pairs, colors):
+def change_color(latex_input, pairs, colors):
+    table = extract_table(latex_input)
+
+    for pair in pairs:
+       print(table[pair[0]][pair[1]])
+
+
+
+def extract_table(latex_input):
     rowsStr = re.findall(r"\\begin\{tabular\}(?:\{.*\})?(.*)\\\\\s*\\end{tabular}", latex_input, flags=re.S)[0]
     print(rowsStr)
 
     rows = re.split(r'\\\\', rowsStr)
 
-    rows = [row.strip() for row in rows]
-    print(rows)
+    # rows = [row.strip() for row in rows]
+
+    # print(rows)
+
+    table = [re.split(r'&', row) for row in rows]
+    print(table)
+    return table
 
 
 latex_table = r"""
@@ -21,4 +34,4 @@ latex_table = r"""
  0.31 & 0.52 & 0.50 \\
 
 \end{tabular}"""
-assignment(latex_table, [[1, 2], [5, 4]], ['#123456', '#549085'])
+change_color(latex_table, [[1, 2], [0, 1]], ['#123456', '#549085'])
