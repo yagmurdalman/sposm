@@ -41,3 +41,8 @@ rsconnect/
 *.DS_Store
 *.pdf
 !/slides/media/*
+
+# IntelliJ project files
+*.iml
+.idea
+.ipynb_checkpoints
