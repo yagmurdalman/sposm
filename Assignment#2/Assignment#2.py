@@ -5,14 +5,14 @@ import re
 
 def change_color(latex_input, pairs, colors):
     (formatting,table) = extract_table(latex_input)
-
     for idx, pair in enumerate(pairs):
-        content = table[pair[0]][pair[1]]
+        row_idx, col_idx = pair[0]-1, pair[1]-1
+        content = table[row_idx][col_idx]
         color = colors[idx]
 
         colored_content = r"\cellcolor{}{}{}{}".format('{', color, '}', content)
 
-        table[pair[0]][pair[1]] = colored_content
+        table[row_idx][col_idx] = colored_content
 
     constructed_table = construct_latex(formatting,table)
     return constructed_table
@@ -58,6 +58,6 @@ latex_table = r"""
  0.31 & 0.52 & 0.50 \\
 
 \end{tabular}"""
-final_table = change_color(latex_table, [[1, 2], [0, 1]], ['#123456', '#549085'])
+final_table = change_color(latex_table, [[1, 2], [3, 1], [1, 1]], ['#123456', '#549085', '#549085'])
 print(final_table)
 
