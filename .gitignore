@@ -46,3 +46,4 @@ rsconnect/
 *.iml
 .idea
 .ipynb_checkpoints
+*/__pycache__/*
