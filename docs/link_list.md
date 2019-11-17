@@ -1,10 +1,3 @@
----
-title: "Link list"
-author: "Joachim Gassen"
-date: "8/26/2019"
-output: html_document
----
-
 ### Disclaimer
 
 This list is meant to be growing on your input. If you come across something
@@ -31,7 +24,7 @@ by RStudio
 ### About git and GitHub
 
 - https://guides.github.com: Start with the 'Hello World' tutorial
-- https://git-scm.com/doc: Reference to the git command infra structure)
+- https://git-scm.com/doc: Reference to the git command infra structure
 - https://happygitwithr.com: If you plan to use R and RStudio along with git, in doubt: yes
 - https://realpython.com/python-git-github-intro/: A good text intro to working with the shell and git
 - https://www.youtube.com/watch?v=IHaTbJPdB-s: Iif you prefer videos over reading, there are a lot of those on youtube
