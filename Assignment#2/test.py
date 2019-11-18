@@ -1,4 +1,4 @@
-from Assignment2 import *
+from YDalman_Assignment2 import *
 
 
 def test_table_coloring():
