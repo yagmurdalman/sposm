@@ -1,8 +1,10 @@
 import re
 
-
+# Given a latex input in plain text, pairs as list of index pairs and colors as list,
+# it returns a plain text latex table with the content of the indicated cells colored with the desired colors.
 def change_color(latex_input, pairs, colors):
 
+    # First check the parameters' correctness
     assert len(pairs) == len(colors), "The number of pairs and colors must be the same!"
 
     assert type(pairs) == list, "The type of pairs must be list!"
@@ -17,6 +19,7 @@ def change_color(latex_input, pairs, colors):
 
         check_valid_pair(table, pair)
 
+        # Start index at 1 (The default one is starting from 0)
         row_idx, col_idx = pair[0] - 1, pair[1] - 1
         content = table[row_idx][col_idx]
         color = colors[idx]
@@ -28,10 +31,13 @@ def change_color(latex_input, pairs, colors):
     constructed_table = construct_latex(formatting, table)
     return constructed_table
 
-
+# Given latex input string, this function applies regex to extract latex formatting and the rows.
 def extract_table(latex_input):
+
     try:
         # findall gives all the matches as a list. by using [0] we take only the first tuple.
+        # First match is latex formatting e.g. {ccc}
+        # Second match contains all content between \begin{tabular} and \end{tabular}
         (formatting, rowsStr) = \
             re.findall(r"\\begin{tabular\}({.*\})?(.*)\\\\\s*\\end{tabular}", latex_input, flags=re.S)[0]
         rows = re.split(r'\\\\', rowsStr)
@@ -44,10 +50,11 @@ def extract_table(latex_input):
 
         return formatting, table
 
+    # If any error happens when applying regex, raise an error message with a better explanation
     except:
-        raise ValueError("The latex table is not valid!")
+        raise ValueError("Complex latex tables are not supported. Please check your latex table!")
 
-
+# Given formatting and table, this function constructs latex table.
 def construct_latex(formatting, table):
     table = [" & ".join(row) for row in table]
 
@@ -57,7 +64,7 @@ def construct_latex(formatting, table):
 
     return table
 
-
+# Given extracted table and each pair, this function checks if row and column indexes are within range.
 def check_valid_pair(table, pair):
     if pair[0] < 1 or pair[1] < 1:
         raise ValueError("Pairs must contain only positive integers. Found: {}".format(pair))
@@ -66,7 +73,7 @@ def check_valid_pair(table, pair):
     if pair[1] > len(table[pair[0] - 1]):
         raise ValueError("Pairs must be in the range. Found: {}".format(pair))
 
-
+# Example usage
 latex_table = r"""
 \begin{tabular}
  Col1 & Col2 & Col3 \\
